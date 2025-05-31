@@ -1,0 +1,291 @@
+/* ---------------------------------------------
+   1. Google Fonts (Professional Sans-Serif)
+---------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* ---------------------------------------------
+   2. CSS Variables (Centralized Theme)
+---------------------------------------------- */
+:root {
+  --font-primary: 'Inter', sans-serif;
+
+  --color-bg: #f5f6f8;           /* Very light gray background */
+  --color-card: #ffffff;         /* Pure white card/backdrop */
+  --color-border: #e0e0e0;       /* Light border for separation */
+  --color-heading: #2c3e50;      /* Dark slate for headings */
+  --color-text: #4a4a4a;         /* Dark gray for body text */
+  --color-accent: #3b82f6;       /* Bright blue accent (links, buttons) */
+  --color-accent-hover: #2563eb; /* Slightly darker blue on hover */
+  --color-danger: #ef4444;       /* Red for “delete” actions */
+  --color-muted: #7f8c8d;        /* Gray for secondary info */
+
+  --radius-base: 8px;            /* Border‐radius */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  --transition-fast: 0.2s ease-in-out;
+  --transition-med: 0.4s ease-in-out;
+}
+
+/* ---------------------------------------------
+   3. Global Reset + Base Styles
+---------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Container wrapper to center content */
+.content {
+  max-width: 720px;
+  margin: var(--spacing-xl) auto;
+  background-color: var(--color-card);
+  border-radius: var(--radius-base);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+/* ---------------------------------------------
+   4. Headings & Text
+---------------------------------------------- */
+h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-muted);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ---------------------------------------------
+   5. Table Styles (Professional, Clean)
+---------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+/* Table Header */
+thead {
+  background-color: var(--color-accent);
+}
+
+thead th {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+}
+
+/* Table Body Rows */
+tbody tr {
+  background-color: var(--color-card);
+  transition: background-color var(--transition-fast);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f9fafb; /* Slightly off-white for zebra-striping */
+}
+
+/* Row Hover */
+tbody tr:hover {
+  background-color: #f1f5f9; /* Light hover shade */
+}
+
+/* Table Cells */
+td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Last row bottom border removal */
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---------------------------------------------
+   6. Links (Actions) Styles
+---------------------------------------------- */
+a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color var(--transition-fast);
+}
+
+a.delete {
+  color: var(--color-danger);
+}
+
+a.delete:hover {
+  color: darken(var(--color-danger), 10%);
+}
+
+/* Regular “Update” link */
+a.update {
+  color: var(--color-accent);
+}
+
+a.update:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ---------------------------------------------
+   7. Form Styles (Add Task)
+---------------------------------------------- */
+form {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Text Input */
+input[type="text"] {
+  flex: 1 1 200px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.2);
+}
+
+/* Submit Button */
+input[type="submit"] {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-base);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+input[type="submit"]:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+
+input[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Placeholder text styling */
+::placeholder {
+  color: var(--color-muted);
+}
+
+/* ---------------------------------------------
+   8. “No Tasks” Message Styling
+---------------------------------------------- */
+.no-tasks {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--color-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ---------------------------------------------
+   9. Responsive Adjustments
+---------------------------------------------- */
+@media (max-width: 768px) {
+  .content {
+    margin: var(--spacing-lg)  var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  th, td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.85rem;
+  }
+
+  input[type="submit"] {
+    font-size: 0.85rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    background-color: var(--color-card);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--color-muted);
+    flex: 1;
+  }
+
+  td:last-child {
+    justify-content: flex-end;
+  }
+}
