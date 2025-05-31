@@ -1,318 +1,95 @@
-Task Master (TodoList)
+# Task Master (TodoList)
 
 A simple, clean, and lightweight Flask-based To-Do List web application that allows you to:
 
-    Create new tasks
-
-    View all tasks in an organized table
-
-    Update existing tasks
-
-    Delete tasks
+- Create new tasks
+- View all tasks in an organized table
+- Update existing tasks
+- Delete tasks
 
 Tasks are stored in a SQLite database via SQLAlchemy, and the UI is rendered using Jinja2 templates. The app is styled with a modern, responsive CSS design.
-Table of Contents
 
-    Features
+---
 
-    Demo Screenshot
+## Table of Contents
 
-    Tech Stack
+1. [Features](#features)  
+2. [Demo Screenshot](#demo-screenshot)  
+3. [Tech Stack](#tech-stack)  
+4. [Folder Structure](#folder-structure)  
+5. [Installation](#installation)  
+6. [Usage](#usage)  
+7. [Database Model](#database-model)  
+8. [Routes & Templates](#routes--templates)  
+9. [Customizing CSS](#customizing-css)  
+10. [Contributing](#contributing)  
+11. [License](#license)  
 
-    Folder Structure
+---
 
-    Installation
+## Features
 
-    Usage
+- **Add Tasks**  
+  Users can enter a new task via a simple form. Each task is timestamped with the creation date.
+- **View Tasks**  
+  All tasks are displayed in a striped, hover-highlighted HTML table. If no tasks exist, a placeholder message is shown.
+- **Update Tasks**  
+  Each row has an “Update” link. Clicking it opens a form pre-filled with the existing task content, allowing you to modify it.
+- **Delete Tasks**  
+  Each row has a “Delete” link. Clicking it removes the task from the database immediately.
+- **SQLite + SQLAlchemy**  
+  Tasks are persisted in a local SQLite file (`test.db`) using SQLAlchemy ORM.
+- **Responsive Design**  
+  The CSS is fully responsive: desktop tables collapse into mobile-friendly card layouts on narrow viewports.
 
-    Database Model
+---
 
-    Routes & Templates
+## Demo Screenshot
 
-    Customizing CSS
+> _Note: You can replace this placeholder with an actual screenshot once you run the app._
 
-    Contributing
+![Task Master Screenshot](./static/todo_screenshot.png)  
+_(Example: index page showing several tasks with Update/Delete links.)_
 
-    License
+---
 
-Features
+## Tech Stack
 
-    Add Tasks
-    Users can enter a new task via a simple form. Each task is timestamped with the creation date.
+- **Framework**: Flask (Python)  
+- **Database**: SQLite (via Flask-SQLAlchemy)  
+- **Templating**: Jinja2  
+- **Styling**: Custom responsive CSS  
+- **Python Version**: 3.7+  
 
-    View Tasks
-    All tasks are displayed in a striped, hover-highlighted HTML table. If no tasks exist, a placeholder message is shown.
+---
 
-    Update Tasks
-    Each row has an “Update” link. Clicking it opens a form pre-filled with the existing task content, allowing you to modify it.
-
-    Delete Tasks
-    Each row has a “Delete” link. Clicking it removes the task from the database immediately.
-
-    SQLite + SQLAlchemy
-    Tasks are persisted in a local SQLite file (test.db) using SQLAlchemy ORM.
-
-    Responsive Design
-    The CSS is fully responsive: desktop tables collapse into mobile-friendly card layouts on narrow viewports.
-
-Demo Screenshot
-
-    Note: You can replace this placeholder with an actual screenshot once you run the app.
-
-
-(Example: index page showing several tasks with Update/Delete links.)
-Tech Stack
-
-    Framework: Flask (Python)
-
-    Database: SQLite (via Flask-SQLAlchemy)
-
-    Templating: Jinja2
-
-    Styling: Custom responsive CSS
-
-    Python Version: 3.7+
-
-Folder Structure
+## Folder Structure
 
 TodoList/
 ├── app.py
 ├── requirements.txt
-├── test.db                   # created after first run
+├── test.db # created after first run
 ├── README.md
 ├── static/
-│   └── style.css             # main stylesheet for “ultra-fancy” design
+│ └── style.css # main stylesheet for “ultra-fancy” design
 │
 └── templates/
-    ├── base.html             # base template: common HTML head + CSS link
-    ├── index.html            # main page: list tasks + add new
-    ├── update.html           # form to edit an existing task
-    └── 404.html              # optional: custom 404 page (if added)
-
-    app.py
-
-        Main Flask application.
-
-        Defines the Todo model and routes for listing, adding, updating, and deleting tasks.
-
-    requirements.txt
-
-        Lists Python dependencies (Flask, Flask-SQLAlchemy, etc.).
-
-    test.db
-
-        SQLite database file automatically generated on first run.
-
-    static/style.css
-
-        Custom CSS for a clean, modern, responsive design.
-
-    templates/
-
-        Jinja2 templates for rendering HTML with dynamic data.
-
-Installation
-
-    Clone the repository
-
-git clone https://github.com/gasimjabrayilov/TodoList.git
-cd TodoList
-
-Create a virtual environment (recommended)
-
-python3 -m venv venv
-source venv/bin/activate    # on macOS/Linux
-# or
-venv\Scripts\activate       # on Windows
-
-Install dependencies
-
-pip install -r requirements.txt
-
-<details> <summary><strong>requirements.txt sample:</strong></summary>
-
-Flask>=2.0
-Flask-SQLAlchemy>=2.5
-
-</details>
-
-Initialize the database
-The first time you run the app, SQLAlchemy will create the test.db file automatically. If you want to explicitly create the tables before running, you can do:
-
-    python
-    >>> from app import db, app
-    >>> with app.app_context():
-    ...     db.create_all()
-    ... 
-    >>> exit()
-
-    This will create an empty test.db with the todo table.
-
-Usage
-
-    Run the Flask application
-
-python app.py
-
-By default, the app runs in debug mode on port 5000. You should see output like:
-
-    * Serving Flask app "app.py"
-    * Debug mode: on
-    * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-
-    Open your browser
-    Navigate to http://127.0.0.1:5000/ to view the Task Master home page.
-
-    Add, Update, Delete
-
-        Add a Task: Type a description into the input field at the bottom and click “Add Task.”
-
-        Update a Task: Click “Update” next to any task. You’ll be taken to an edit form. Modify the text and click “Update Task.”
-
-        Delete a Task: Click “Delete” next to any task. The page will refresh and that task will be removed.
-
-    Stop the server
-    Press CTRL+C in your terminal to shut down the Flask server.
-
-Database Model
-
-Todo model (in app.py)
-
-class Todo(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(200), nullable=False)
-    complete = db.Column(db.Integer, default=0)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f'<Task {self.id}>'
-
-    id: Integer, Primary Key
-
-    content: String(200), Non-nullable text content of the task
-
-    complete: Integer (0 or 1), indicates if a task is completed (for future expansion)
-
-    date_created: DateTime (auto-set to UTC now when the row is created)
-
-    Currently, the complete field is not used in the UI, but it’s there for potential “mark as done” functionality in future versions.
-
-Routes & Templates
-Route	HTTP Method	Description	Template / Response
-/	GET	Show all tasks in a table and the “Add Task” form	index.html
-/	POST	Add a new task, then redirect back to /	Redirect to /
-/update/<int:id>	GET	Render an edit-form prefilled with the task’s current content	update.html
-/update/<int:id>	POST	Update the task’s content in the database, then redirect back to /	Redirect to /
-/delete/<int:id>	GET	Delete the specified task from the DB, then redirect back to /	Redirect to /
-index.html
-
-    Extends base.html
-
-    If there are no tasks (tasks|length < 1), shows a message “There are no tasks. Create one below!”
-
-    Otherwise, displays a <table> where each row has:
-
-        Task content
-
-        Date created (formatted as YYYY-MM-DD)
-
-        “Delete”/“Update” action links
-
-    At the bottom, a form:
-
-    <form action="/" method="POST">
-        <input type="text" name="content" id="content" placeholder="Enter new task...">
-        <input type="submit" value="Add Task">
-    </form>
-
-update.html
-
-    Extends base.html
-
-    Renders a form prefilled with the existing task content:
-
-    <form action="/update/{{ task.id }}" method="POST">
-        <input type="text" name="content" id="content" value="{{ task.content }}">
-        <input type="submit" value="Update Task">
-    </form>
-
-    On submit, POST to /update/<id>, update the task, and redirect to /.
-
-base.html
-
-A minimal wrapper that includes the CSS link and defines head and body blocks:
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  {% block head %}{% endblock %}
-</head>
-<body>
-  {% block body %}{% endblock %}
-</body>
-</html>
-
-Customizing CSS
-
-The app’s default CSS lives in static/style.css. It uses a neutral, professional palette and is fully responsive. Key features include:
-
-    Centered content “card” with subtle drop shadows
-
-    Clean table with alternating row backgrounds and hover elevation
-
-    Input fields and buttons with consistent padding, rounded corners, and smooth transitions
-
-    Mobile‐friendly breakpoints that convert the table into a stacked card layout
-
-If you want to customize colors, fonts, or spacing, edit the top section of style.css, where CSS variables are declared (:root { … }). For example:
-
-:root {
-  --color-accent: #3b82f6;       /* Change this to your desired accent color */
-  --color-bg: #f5f6f8;           /* Page background */
-  --color-card: #ffffff;         /* Card background */
-  /* ...and so on */
-}
-
-Contributing
-
-    Fork the repository
-    Click “Fork” in the upper-right corner of GitHub.
-
-    Clone your fork locally
-
-git clone https://github.com/<your-username>/TodoList.git
-cd TodoList
-
-Create a new branch
-
-git checkout -b feature/your-feature-name
-
-Make your changes
-
-    Add new features (e.g., “mark as complete”)
-
-    Improve CSS styling
-
-    Add unit tests, etc.
-
-Commit & push
-
-    git add .
-    git commit -m "Add feature: add ‘mark task as complete’"
-    git push origin feature/your-feature-name
-
-    Open a Pull Request
-    Describe your changes and submit for review.
-
-Please ensure you follow PEP8 style guidelines for Python code and maintain consistent formatting in HTML/CSS.
-License
-
-This project is released under the MIT License. See LICENSE for details.
-Feel free to use, modify, and redistribute for personal or commercial purposes.
-
-Thank you for using Task Master!
-If you have any questions, ideas for improvement, or issues, please open an issue on GitHub.
- 
+├── base.html # base template: common HTML head + CSS link
+├── index.html # main page: list tasks + add new
+├── update.html # form to edit an existing task
+└── 404.html # optional: custom 404 page (if added)
+
+
+TodoList/
+├── app.py
+├── requirements.txt
+├── test.db # created after first run
+├── README.md
+├── static/
+│ └── style.css # main stylesheet for “ultra-fancy” design
+│
+└── templates/
+├── base.html # base template: common HTML head + CSS link
+├── index.html # main page: list tasks + add new
+├── update.html # form to edit an existing task
+└── 404.html # optional: custom 404 page (if added)
